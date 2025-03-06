@@ -1,4 +1,4 @@
-namespace: lucasheld
+namespace: xy8000
 name: uptime_kuma
 version: 1.2.0
 readme: README.md
@@ -7,10 +7,10 @@ authors:
 description: This collection contains modules that allow to configure Uptime Kuma with Ansible.
 license_file: LICENSE
 tags: [uptime_kuma]
-repository: https://github.com/lucasheld/ansible-uptime-kuma
-documentation: https://github.com/lucasheld/ansible-uptime-kuma/wiki
-homepage: https://github.com/lucasheld/ansible-uptime-kuma
-issues: https://github.com/lucasheld/ansible-uptime-kuma/issues
+repository: https://github.com/xy8000/ansible_kuma
+documentation: https://github.com/xy8000/ansible_kuma/wiki
+homepage: https://github.com/xy8000/ansible_kuma
+issues: https://github.com/xy8000/ansible_kuma/issues
 build_ignore:
   - '*/.pytest_cache'
   - .idea
