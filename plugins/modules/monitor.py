@@ -12,7 +12,7 @@ __metaclass__ = type
 DOCUMENTATION = r'''
 ---
 extends_documentation_fragment:
-  - lucasheld.uptime_kuma.uptime_kuma
+  - xy8000.uptime_kuma.uptime_kuma
 
 module: monitor
 author: Lucas Held (@lucasheld)
@@ -297,7 +297,7 @@ options:
 
 EXAMPLES = r'''
 - name: Add a monitor
-  lucasheld.uptime_kuma.monitor:
+  xy8000.uptime_kuma.monitor:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -308,7 +308,7 @@ EXAMPLES = r'''
     state: present
 
 - name: Edit a monitor
-  lucasheld.uptime_kuma.monitor:
+  xy8000.uptime_kuma.monitor:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -318,7 +318,7 @@ EXAMPLES = r'''
     state: present
 
 - name: Remove a monitor
-  lucasheld.uptime_kuma.monitor:
+  xy8000.uptime_kuma.monitor:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -326,7 +326,7 @@ EXAMPLES = r'''
     state: absent
 
 - name: Pause a monitor
-  lucasheld.uptime_kuma.monitor:
+  xy8000.uptime_kuma.monitor:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -334,7 +334,7 @@ EXAMPLES = r'''
     state: paused
 
 - name: Resume a monitor
-  lucasheld.uptime_kuma.monitor:
+  xy8000.uptime_kuma.monitor:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -348,7 +348,7 @@ RETURN = r'''
 import traceback
 
 from ansible.module_utils.basic import AnsibleModule, missing_required_lib
-from ansible_collections.lucasheld.uptime_kuma.plugins.module_utils.common import object_changed, clear_params, \
+from ansible_collections.xy8000.uptime_kuma.plugins.module_utils.common import object_changed, clear_params, \
     common_module_args, get_proxy_by_host_port, get_notification_by_name, get_monitor_by_name, clear_unset_params, \
     get_docker_host_by_name
 

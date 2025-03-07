@@ -1,5 +1,5 @@
 - name: Add a maintenance
-  lucasheld.uptime_kuma.maintenance:
+  xy8000.uptime_kuma.maintenance:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123

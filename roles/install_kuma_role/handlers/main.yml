@@ -1,0 +1,18 @@
+---
+- name: restarting docker container
+  community.docker.docker_compose_v2:
+    project_src: "{{ kuma_git_repo_local_dest }}"
+    state: present
+    recreate: "always" # We would like to trigger a recreate every time this handler was activated
+  register: output
+  listen: "restart kuma"
+  become: true
+- name: Verify that kuma is running
+  ansible.builtin.assert:
+    that:
+      - current_container.State == 'running'
+  vars:
+    current_container: >-
+      {{ output.containers | selectattr("Name", "equalto", kuma_container_name) | first }}
+  listen: "restart kuma"
+  become: true

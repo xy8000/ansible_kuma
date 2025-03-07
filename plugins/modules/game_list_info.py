@@ -12,7 +12,7 @@ __metaclass__ = type
 DOCUMENTATION = r'''
 ---
 extends_documentation_fragment:
-  - lucasheld.uptime_kuma.uptime_kuma
+  - xy8000.uptime_kuma.uptime_kuma
 
 module: game_list_info
 author: Lucas Held (@lucasheld)
@@ -22,7 +22,7 @@ description: Retrieves facts about the games that are supported by the GameDig m
 
 EXAMPLES = r'''
 - name: get game list
-  lucasheld.uptime_kuma.game_list_info:
+  xy8000.uptime_kuma.game_list_info:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -61,7 +61,7 @@ game_list:
 import traceback
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.lucasheld.uptime_kuma.plugins.module_utils.common import common_module_args
+from ansible_collections.xy8000.uptime_kuma.plugins.module_utils.common import common_module_args
 from ansible.module_utils.basic import missing_required_lib
 
 try:

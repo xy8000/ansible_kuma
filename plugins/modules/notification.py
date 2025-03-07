@@ -12,7 +12,7 @@ __metaclass__ = type
 DOCUMENTATION = r'''
 ---
 extends_documentation_fragment:
-  - lucasheld.uptime_kuma.uptime_kuma
+  - xy8000.uptime_kuma.uptime_kuma
 
 module: notification
 author: Lucas Held (@lucasheld)
@@ -47,7 +47,7 @@ options:
 
 EXAMPLES = r'''
 - name: Add notification
-  lucasheld.uptime_kuma.notification:
+  xy8000.uptime_kuma.notification:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -60,7 +60,7 @@ EXAMPLES = r'''
     state: present
 
 - name: Edit notification
-  lucasheld.uptime_kuma.notification:
+  xy8000.uptime_kuma.notification:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -73,7 +73,7 @@ EXAMPLES = r'''
     state: present
 
 - name: Remove notification
-  lucasheld.uptime_kuma.notification:
+  xy8000.uptime_kuma.notification:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -87,7 +87,7 @@ RETURN = r'''
 import traceback
 
 from ansible.module_utils.basic import AnsibleModule, missing_required_lib
-from ansible_collections.lucasheld.uptime_kuma.plugins.module_utils.common import object_changed, clear_params, common_module_args, get_notification_by_name, \
+from ansible_collections.xy8000.uptime_kuma.plugins.module_utils.common import object_changed, clear_params, common_module_args, get_notification_by_name, \
     clear_unset_params
 
 try:

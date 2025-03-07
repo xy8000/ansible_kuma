@@ -1,5 +1,5 @@
 - name: Add api key
-  lucasheld.uptime_kuma.api_key:
+  xy8000.uptime_kuma.api_key:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123

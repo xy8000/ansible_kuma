@@ -1,0 +1,13 @@
+---
+- name: Printing given vars
+  ansible.builtin.debug:
+    msg:
+    - "web_ui_port: {{ web_ui_port }}"
+    - "web_ui_enabled: {{ web_ui_enabled }}"
+    - "kuma_container_name: {{ kuma_container_name }}"
+    - "kuma_git_repo_clone_url: {{ kuma_git_repo_clone_url }}"
+    - "kuma_git_repo_local_dest: {{ kuma_git_repo_local_dest }}"
+    - "docker_compose_file_name: {{ docker_compose_file_name }}"
+    - "configure_ufw: {{ configure_ufw }}"
+    - "update_on_excecute: {{ update_on_excecute }}"
+    verbosity: 1

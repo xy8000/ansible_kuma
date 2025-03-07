@@ -12,7 +12,7 @@ __metaclass__ = type
 DOCUMENTATION = r'''
 ---
 extends_documentation_fragment:
-  - lucasheld.uptime_kuma.uptime_kuma
+  - xy8000.uptime_kuma.uptime_kuma
 
 module: tag_info
 author: Lucas Held (@lucasheld)
@@ -34,7 +34,7 @@ options:
 
 EXAMPLES = r'''
 - name: get all tags
-  lucasheld.uptime_kuma.tag_info:
+  xy8000.uptime_kuma.tag_info:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -67,7 +67,7 @@ tags:
 import traceback
 
 from ansible.module_utils.basic import AnsibleModule
-from ansible_collections.lucasheld.uptime_kuma.plugins.module_utils.common import common_module_args, get_tag_by_name
+from ansible_collections.xy8000.uptime_kuma.plugins.module_utils.common import common_module_args, get_tag_by_name
 from ansible.module_utils.basic import missing_required_lib
 
 try:

@@ -1,0 +1,23 @@
+galaxy_info:
+  author: xy8000
+  description: Install Pihole on prepared linux-server (see ansible_role_generic_linux_setup)
+  license: license (GPL-2.0-or-later, MIT, etc)
+  min_ansible_version: 2.2
+  platforms:
+    - name: Fedora
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags: []
+dependencies:
+  - role: ansible_role_install_docker_compose_container_from_git
+    become: yes
+    git_repo_clone_url: "{{ kuma_git_repo_clone_url }}"
+    git_repo_local_dest: "{{ kuma_git_repo_local_dest }}"
+    expected_running_container_names:
+      - "{{ kuma_container_name }}"

@@ -1,0 +1,5 @@
+---
+web_ui_port: 3001
+web_ui_enabled: true
+configure_ufw: true
+update_on_excecute: true

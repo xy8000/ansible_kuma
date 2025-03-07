@@ -12,7 +12,7 @@ __metaclass__ = type
 DOCUMENTATION = r'''
 ---
 extends_documentation_fragment:
-  - lucasheld.uptime_kuma.uptime_kuma
+  - xy8000.uptime_kuma.uptime_kuma
 
 module: docker_host
 author: Lucas Held (@lucasheld)
@@ -48,7 +48,7 @@ options:
 
 EXAMPLES = r'''
 - name: Add docker host
-  lucasheld.uptime_kuma.docker_host:
+  xy8000.uptime_kuma.docker_host:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -57,7 +57,7 @@ EXAMPLES = r'''
     dockerDaemon: /var/run/docker.sock
 
 - name: Remove docker host
-  lucasheld.uptime_kuma.docker_host:
+  xy8000.uptime_kuma.docker_host:
     api_url: http://127.0.0.1:3001
     api_username: admin
     api_password: secret123
@@ -71,7 +71,7 @@ RETURN = r'''
 import traceback
 
 from ansible.module_utils.basic import AnsibleModule, missing_required_lib
-from ansible_collections.lucasheld.uptime_kuma.plugins.module_utils.common import common_module_args,\
+from ansible_collections.xy8000.uptime_kuma.plugins.module_utils.common import common_module_args,\
     get_docker_host_by_name, clear_params, clear_unset_params, object_changed
 
 try:

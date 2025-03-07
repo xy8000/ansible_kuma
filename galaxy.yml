@@ -1,9 +1,10 @@
 namespace: xy8000
 name: uptime_kuma
-version: 1.2.0
+version: 1.2.1
 readme: README.md
 authors:
   - Lucas Held <lucasheld@hotmail.de>
+  - Xy8000
 description: This collection contains modules that allow to configure Uptime Kuma with Ansible.
 license_file: LICENSE
 tags: [uptime_kuma]

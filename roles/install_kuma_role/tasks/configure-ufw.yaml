@@ -1,0 +1,7 @@
+---
+- name: Enable Access via exposed port
+  community.general.ufw:
+    rule: allow
+    port: '{{web_ui_port}}'
+  become: true
+  when: web_ui_enabled

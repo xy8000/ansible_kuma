@@ -1,0 +1,24 @@
+---
+- include_tasks: print-vars.yaml
+- include_tasks: configure-ufw.yaml
+  when: configure_ufw
+
+- name: Pull new uptime-kuma-image
+  community.docker.docker_compose_v2_pull:
+    project_src: "{{ kuma_git_repo_local_dest }}"
+  when: not update_on_excecute
+  notify: restart kuma
+  become: yes
+- name: Configure Container-Web-Port
+  ansible.builtin.lineinfile:
+    path: "{{ kuma_git_repo_local_dest }}/{{ docker_compose_file_name }}"
+    regexp: "^\\s+-\\s[0-9]+:[0-9]+.*$"
+    line: "      - {{ web_ui_port }}:3001"
+  when: web_ui_enabled
+  notify: restart kuma
+  become: yes
+- name: Specify the initial username and password
+  xy8000.uptime_kuma.setup:
+    api_url: "http://127.0.0.1:{{ web_ui_port }}"
+    api_username: "{{ kuma_username }}"
+    api_password: "{{ kuma_password }}"

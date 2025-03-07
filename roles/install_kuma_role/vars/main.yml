@@ -1,0 +1,11 @@
+---
+web_ui_port:
+web_ui_enabled:
+configure_ufw:
+update_on_excecute:
+kuma_container_name:
+kuma_git_repo_clone_url:
+kuma_git_repo_local_dest:
+docker_compose_file_name:
+kuma_username:
+kuma_password:
