@@ -6,30 +6,33 @@ Python version 3.7+ and Ansible version 2.9+ are required.
 
 Supported Uptime Kuma versions:
 
-| Uptime Kuma     | ansible-uptime-kuma | ansible_kuma  |
-|-----------------|---------------------|-----------------|
-| 1.21.3 - 1.23.2 | 1.0.0 - 1.2.0       | 1.0.0+          |
-| 1.17.0 - 1.21.2 | 0.1.0 - 0.14.0      | 0.1.0 - 0.13.0  |
-
+| Uptime Kuma     | ansible-uptime-kuma | ansible_kuma   |
+| --------------- | ------------------- | -------------- |
+| 1.21.3 - 1.23.2 | 1.0.0 - 1.2.0       | 1.0.0+         |
+| 1.17.0 - 1.21.2 | 0.1.0 - 0.14.0      | 0.1.0 - 0.13.0 |
 
 ## Installation
 
-This collection requires the python module [ansible_kuma ](https://github.com/xy8000/ansible_kuma ) to communicate with Uptime Kuma. It can be installed using pip:
+This collection requires the python module [ansible_kuma](https://github.com/xy8000/ansible_kuma) to communicate with Uptime Kuma. It can be installed using pip:
+
 ```shell
-pip install ansible_kuma 
+pip install ansible_kuma
 ```
 
 Alternately, you can install a specific version (e.g. `0.13.0`):
+
 ```shell
 pip install ansible_kuma ==0.13.0
 ```
 
 Then install the ansible collection itself:
+
 ```shell
 ansible-galaxy collection install xy8000.uptime_kuma
 ```
 
 Alternately, you can install a specific version (e.g. `0.14.0`):
+
 ```shell
 ansible-galaxy collection install xy8000.uptime_kuma:==0.14.0
 ```
@@ -61,9 +64,10 @@ The following modules are available:
 - [tag](https://github.com/xy8000/ansible-uptime-kuma/wiki/tag)
 - [tag_info](https://github.com/xy8000/ansible-uptime-kuma/wiki/tag_info)
 
-
 ## Getting started
+
 Directly after the installation of Uptime Kuma, the initial username and password must be set:
+
 ```yaml
 - name: Specify the initial username and password
   xy8000.uptime_kuma.setup:
@@ -76,6 +80,7 @@ For future requests you can either use these credentials directly or a token tha
 The token usage is recommended because frequent logins lead to a rate limit. In this example we create a new monitor.
 
 Option 1 (not recommended): Create a monitor by using the credentials directly:
+
 ```yaml
 - name: Login with credentials and create a monitor
   xy8000.uptime_kuma.monitor:
@@ -89,6 +94,7 @@ Option 1 (not recommended): Create a monitor by using the credentials directly:
 ```
 
 Option 2 (recommended): Generate a token and create a monitor by using this token:
+
 ```yaml
 - name: Login with credentials once and register the result
   xy8000.uptime_kuma.login:

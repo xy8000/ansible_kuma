@@ -12,13 +12,13 @@
 # ./run_tests.sh 1.19.4 maintenance maintenance_info
 
 venv_path="$(pwd)/venv/bin/python"
-collection_path="$HOME/.ansible/collections/ansible_collections/lucasheld/uptime_kuma"
+collection_path="$HOME/.ansible/collections/ansible_collections/xy8000/uptime_kuma"
 version="$1"
 modules="${@:2}"
 
 if [ ! -d "$collection_path" ]
 then
-  ansible-galaxy collection install git+https://github.com/lucasheld/ansible-uptime-kuma.git
+  ansible-galaxy collection install git+https://github.com/xy8000/ansible_kuma.git
 fi
 cp -r ./{plugins,tests} "$collection_path"
 cd "$collection_path"
