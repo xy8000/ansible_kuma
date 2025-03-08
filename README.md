@@ -1,8 +1,10 @@
 # ansible-uptime-kuma
 
+(!) Currently not built to be used in a public manner (!)
+
 This collection contains modules that allow to configure [Uptime Kuma](https://github.com/louislam/uptime-kuma) with Ansible.
 
-Python version 3.7+ and Ansible version 2.9+ are required.
+Python version 3.7+ (including pip) and Ansible version 2.9+ are required.
 
 Supported Uptime Kuma versions:
 
@@ -13,7 +15,19 @@ Supported Uptime Kuma versions:
 
 ## Installation
 
-This collection requires the python module [ansible_kuma](https://github.com/xy8000/ansible_kuma) to communicate with Uptime Kuma. It can be installed using pip:
+### Using a role
+
+This collection can be used to install kuma automatically.
+In order to do this, please use the [install_kuma_role](./roles/install_kuma_role/).
+An example of the usage can be found [here](#getting-started).
+
+Please note, that this role requires the following role:
+
+* [ansible_role_install_docker_compose_container_from_git](https://github.com/xy8000/ansible_role_install_docker_compose_container_from_git)
+
+### Manual
+
+The manual installation requires the python module [ansible_kuma](https://github.com/xy8000/ansible_kuma) to communicate with Uptime Kuma. It can be installed using pip:
 
 ```shell
 pip install ansible_kuma
@@ -65,6 +79,28 @@ The following modules are available:
 - [tag_info](https://github.com/xy8000/ansible-uptime-kuma/wiki/tag_info)
 
 ## Getting started
+
+Installing Uodate Kuma (using the [install_kuma_role](./roles/install_kuma_role/))
+
+```yaml
+  tasks:
+    - name: Import kuma role
+      ansible.builtin.import_role:
+        name: install_kuma_role
+      vars:
+        web_ui_port: "<<INSERT_PORT>>"
+        web_ui_enabled: true
+        kuma_container_name: "uptime-kuma"
+        kuma_git_repo_clone_url: "git@github.com:xy8000/server_kuma"
+        kuma_git_repo_local_dest: "~/git/server_kuma"
+        docker_compose_file_name: "docker-compose.yaml"
+        configure_ufw: true
+        update_on_excecute: true
+        kuma_monitors: 
+          - name: Google
+            url: https://google.com
+            type: http
+```
 
 Directly after the installation of Uptime Kuma, the initial username and password must be set:
 
