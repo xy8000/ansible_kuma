@@ -20,3 +20,4 @@ build_ignore:
   - run_tests.sh
   - build.sh
   - .gitignore
+  - venv

@@ -11,10 +11,21 @@
 # run all tests against specific uptime kuma version and specific modules:
 # ./run_tests.sh 1.19.4 maintenance maintenance_info
 
-venv_path="$(pwd)/venv/bin/python"
-collection_path="$HOME/.ansible/collections/ansible_collections/xy8000/uptime_kuma"
+function stop_kuma()
+{
+  echo "Stopping uptime kuma..."
+  docker stop uptimekuma > /dev/null
+}
+
+venv_path="$HOME/git/ansible_kuma/venv/bin/python" #TODO: Change to generic path
+collection_path="$HOME/.ansible/collections/ansible_collections/xy8000/uptime_kuma" #TODO: Change to generic path
+initial_path=$(pwd)
 version="$1"
 modules="${@:2}"
+
+echo "Using venv: $venv_path"
+echo "Using collection-path: $collection_path"
+echo "Initial path: $initial_path"
 
 if [ ! -d "$collection_path" ]
 then
@@ -55,13 +66,27 @@ do
   echo "Running unit tests..."
   ansible-test units -v --requirements --python-interpreter "$venv_path"  --num-workers 1 $unit_targets
 
+  if [ $? != 0 ]; then
+    echo "Error while executing unit-tests"
+    stop_kuma
+    break
+  fi
+
   echo ""
   echo "Running integration tests..."
   ansible-test integration -v --requirements --python-interpreter "$venv_path" $integration_targets
 
-  echo "Stopping uptime kuma..."
-  docker stop uptimekuma > /dev/null
+  if [ $? != 0 ]; then
+    echo "Error while executing unit-tests"
+    stop_kuma
+    break
+  fi
+
+  stop_kuma
   sleep 1
 
-  echo ""
 done
+
+echo "Jumping back to initial path..."
+cd $initial_path
+echo "Done"
