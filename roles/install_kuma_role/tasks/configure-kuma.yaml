@@ -4,14 +4,13 @@
     api_url: "http://127.0.0.1:{{ web_ui_port }}"
     api_username: "{{ kuma_username }}"
     api_password: "{{ kuma_password }}"
-- name: Add a monitor
-  lucasheld.uptime_kuma.monitor:
-    api_url: http://127.0.0.1:3001
-    api_username: admin
-    api_password: secret123
-    type: keyword
-    name: Monitor 1
-    url: http://127.0.0.1
-    keyword: healthy
+- name: Add Monitors
+  xy8000.uptime_kuma.monitor:
+    api_url: "http://127.0.0.1:{{ web_ui_port }}"
+    api_username: "{{ kuma_username }}"
+    api_password: "{{ kuma_password }}"
+    name: "{{ item.name }}"
+    url: "{{ item.url }}"
+    type: "{{ item.type }}"
     state: present
-  
+  loop: "{{ kuma_monitors }}"

@@ -9,3 +9,4 @@ kuma_git_repo_local_dest:
 docker_compose_file_name:
 kuma_username:
 kuma_password:
+kuma_monitors:
