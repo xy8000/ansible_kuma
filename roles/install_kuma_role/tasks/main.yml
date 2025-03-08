@@ -1,5 +1,6 @@
 ---
 - include_tasks: print-vars.yaml
+- include_tasks: configure-python.yaml
 - include_tasks: configure-ufw.yaml
   when: configure_ufw
 
@@ -17,6 +18,18 @@
   when: web_ui_enabled
   notify: restart kuma
   become: yes
+- name: Flush handlers (force restart if needed before further configuration)
+  meta: flush_handlers
+- name: Wait until kuma is ready
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ web_ui_port }}"
+    status_code:
+      - 200
+      - 302 # Redirecting to dashboard is indicating that the service is running
+  register: result
+  until: (result.status == 200 or result.status == 302)
+  retries: 10
+  delay: 5 # Unit: seconds
 - name: Specify the initial username and password
   xy8000.uptime_kuma.setup:
     api_url: "http://127.0.0.1:{{ web_ui_port }}"

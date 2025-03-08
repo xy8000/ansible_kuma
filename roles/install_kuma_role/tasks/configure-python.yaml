@@ -1,0 +1,4 @@
+---
+- name: Install uptime_kuma_api
+  ansible.builtin.pip:
+    name: uptime_kuma_api
