@@ -1,5 +1,5 @@
 ---
-- name: restarting docker container
+- name: re-starting docker container
   community.docker.docker_compose_v2:
     project_src: "{{ kuma_git_repo_local_dest }}"
     state: present
