@@ -13,6 +13,69 @@
   when: web_ui_enabled
   notify: restart kuma
   become: yes
+- name: Configure Traefik I (remove empty labels-statement, if present)
+  ansible.builtin.lineinfile:
+    path: "{{ kuma_git_repo_local_dest }}/{{ docker_compose_file_name }}"
+    regexp: "^\\s+labels:\\s*[\\s*].*"
+    line: "    labels:"
+  become: yes
+  when: traefik.enabled
+  notify: restart kuma
+- name: Configure Traefik II (remove empty service-network-statement, if present)
+  ansible.builtin.lineinfile:
+    path: "{{ kuma_git_repo_local_dest }}/{{ docker_compose_file_name }}"
+    regexp: "^\\s+networks:\\s*[\\s*].*"
+    line: "    networks:"
+  become: yes
+  when: traefik.enabled
+  notify: restart kuma
+- name: Configure Traefik III (add network-statement, if needed)
+  ansible.builtin.lineinfile:
+    path: "{{ kuma_git_repo_local_dest }}/{{ docker_compose_file_name }}"
+    regexp: "^networks:\\.*"
+    insertafter: EOF
+    line: "networks:"
+  when: traefik.enabled
+  notify: restart kuma
+  become: yes
+- name: Configure Traefik IV (prepare file fore traefik)
+  ansible.builtin.lineinfile:
+    path: "{{ kuma_git_repo_local_dest }}/{{ docker_compose_file_name }}"
+    search_string: "{{ item.search_string }}"
+    insertafter: "{{ item.insert_after }}"
+    line: "{{ item.line }}"
+  with_items:
+    - search_string: "traefik.http.services.{{ traefik.service }}.loadbalancer.server.port={{ traefik.loadbalancer_port }}"
+      insert_after: '^\s+labels:' 
+      line: "      - \"traefik.http.services.{{ traefik.service }}.loadbalancer.server.port={{ traefik.loadbalancer_port }}\""
+    - search_string: "traefik.http.routers.{{ traefik.router }}.service={{ traefik.service }}"
+      insert_after: '^\s+labels:' 
+      line: "      - \"traefik.http.routers.{{ traefik.router }}.service={{ traefik.service }}\""
+    - search_string: "traefik.http.routers.{{ traefik.router }}.tls.certresolver={{ traefik.certresolver }}"
+      insert_after: '^\s+labels:' 
+      line: "      - \"traefik.http.routers.{{ traefik.router }}.tls.certresolver={{ traefik.certresolver }}\""
+    - search_string: "traefik.http.routers.{{ traefik.router }}.entrypoints={{ traefik.entrypoints }}"
+      insert_after: '^\s+labels:' 
+      line: "      - \"traefik.http.routers.{{ traefik.router }}.entrypoints={{ traefik.entrypoints }}\""
+    - search_string: "traefik.http.routers.{{ traefik.router }}.rule=Host(`{{ traefik.host }}`)"
+      insert_after: '^\s+labels:' 
+      line: "      - \"traefik.http.routers.{{ traefik.router }}.rule=Host(`{{ traefik.host }}`)\""
+    - search_string: "traefik.enable={{ traefik.enabled }}"
+      insert_after: '^\s+labels:' 
+      line: "      - \"traefik.enable={{ traefik.enabled }}\""
+    - search_string: "  {{ traefik.netowrk_name }}:"
+      insert_after: '^networks:' 
+      line: "  {{ traefik.netowrk_name }}:"
+    - search_string: "    external: true"
+      insert_after: '^  s{{ traefik.netowrk_name }}:' 
+      line: "    external: true"
+    - search_string: "      - {{ traefik.netowrk_name }}"
+      insert_after: '^    networks:' 
+      line: "      - {{ traefik.netowrk_name }}"
+  become: yes
+  when: traefik.enabled
+  notify: restart kuma
+  become: yes
 - name: Flush handlers (force restart if needed before further configuration)
   meta: flush_handlers
 - name: Wait until kuma is ready

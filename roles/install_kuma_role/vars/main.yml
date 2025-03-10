@@ -10,3 +10,4 @@ docker_compose_file_name:
 kuma_username:
 kuma_password:
 kuma_monitors:
+traefik:
