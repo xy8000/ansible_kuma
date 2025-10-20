@@ -75,7 +75,7 @@
   become: yes
   when: traefik.enabled
   notify: restart kuma
-- name: Configure Traefik IV (prepare file fore traefik)
+- name: Configure Traefik V (add middlewares, if any are defined)
   ansible.builtin.lineinfile:
     path: "{{ kuma_git_repo_local_dest }}/{{ docker_compose_file_name }}"
     search_string: "{{ item.search_string }}"

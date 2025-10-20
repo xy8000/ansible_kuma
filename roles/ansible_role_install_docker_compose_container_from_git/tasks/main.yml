@@ -1,0 +1,36 @@
+---
+- name: Creating target-folder (if needed)
+  ansible.builtin.file:
+    path: "{{ git_repo_local_dest }}"
+    state: directory
+- name: Try to pull latest changes # We will only "force" a pull in case of remote changes. This will save a lot of time
+  ansible.builtin.command:
+    cmd: git pull
+    chdir: "{{ git_repo_local_dest }}"
+  register: git_pull_result
+  ignore_errors: "{{ force_pull_on_conflicts }}" # If forcing is disabled we need to fail here
+  changed_when: "'Already up to date' not in git_pull_result.stdout"
+  notify: force checkout
+- name: Triggering force on error
+  command: /bin/true
+  changed_when: true
+  when: git_pull_result.rc != 0
+  notify: force checkout
+- name: Force all notified handlers to run at this point, not waiting for normal sync points
+  ansible.builtin.meta: flush_handlers
+  when: git_pull_result.rc != 0
+- name: Install / Ramp-Up Services
+  community.docker.docker_compose_v2:
+    project_src: "{{ git_repo_local_dest }}"
+    state: present
+  register: output
+  when: ramp_up_service == true
+- name: Verify that service is running
+  ansible.builtin.assert:
+    that:
+      - current_container.State == 'running'
+  vars:
+    current_container: >-
+      {{ output.containers | selectattr("Name", "equalto", item) | first }}
+  loop: "{{ expected_running_container_names }}"
+  when: ramp_up_service == true

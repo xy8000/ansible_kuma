@@ -1,0 +1,7 @@
+---
+git_repo_clone_url: '<<OVERRIDE_ME>>'
+git_repo_local_dest: '<<OVERRIDE_ME>>'
+expected_running_container_names:
+  - '<<OVERRIDE_ME>>'
+ramp_up_service: true
+force_pull_on_conflicts: true
