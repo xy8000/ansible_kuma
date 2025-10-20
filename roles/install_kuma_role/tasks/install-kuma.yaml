@@ -75,7 +75,19 @@
   become: yes
   when: traefik.enabled
   notify: restart kuma
+- name: Configure Traefik IV (prepare file fore traefik)
+  ansible.builtin.lineinfile:
+    path: "{{ kuma_git_repo_local_dest }}/{{ docker_compose_file_name }}"
+    search_string: "{{ item.search_string }}"
+    insertafter: "{{ item.insert_after }}"
+    line: "{{ item.line }}"
+  with_items:
+    - search_string: "      - \"traefik.http.routers.{{ traefik.router }}.middlewares={{ traefik.middlewares | join(',') }}\""
+      insert_after: '^\s+labels:' 
+      line: "      - \"traefik.http.routers.{{ traefik.router }}.middlewares={{ traefik.middlewares | join(',') }}\""
   become: yes
+  when: traefik.middlewares is defined and traefik.middlewares | length > 0 and traefik.enabled
+  notify: restart kuma
 - name: Flush handlers (force restart if needed before further configuration)
   meta: flush_handlers
 - name: Wait until kuma is ready
