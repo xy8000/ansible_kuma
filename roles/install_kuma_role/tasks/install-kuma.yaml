@@ -63,15 +63,15 @@
     - search_string: "traefik.enable={{ traefik.enabled }}"
       insert_after: '^\s+labels:' 
       line: "      - \"traefik.enable={{ traefik.enabled }}\""
-    - search_string: "  {{ traefik.netowrk_name }}:"
+    - search_string: "  {{ traefik.network_name }}:"
       insert_after: '^networks:' 
-      line: "  {{ traefik.netowrk_name }}:"
+      line: "  {{ traefik.network_name }}:"
     - search_string: "    external: true"
-      insert_after: '^  s{{ traefik.netowrk_name }}:' 
+      insert_after: '^  s{{ traefik.network_name }}:' 
       line: "    external: true"
-    - search_string: "      - {{ traefik.netowrk_name }}"
+    - search_string: "      - {{ traefik.network_name }}"
       insert_after: '^    networks:' 
-      line: "      - {{ traefik.netowrk_name }}"
+      line: "      - {{ traefik.network_name }}"
   become: yes
   when: traefik.enabled
   notify: restart kuma
